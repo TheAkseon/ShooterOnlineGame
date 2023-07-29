@@ -328,6 +328,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="LucidSightTools">
+      <HintPath>Library\PackageCache\io.colyseus.sdk@4087dedd6e\Runtime\Scripts\Tools\LucidSightTools.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.14f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
     </Reference>
@@ -801,6 +804,12 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="LucidSight.Runtime.ColyseusSDK">
+      <HintPath>Library\ScriptAssemblies\LucidSight.Runtime.ColyseusSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="LucidSight.Editor.Tests">
+      <HintPath>Library\ScriptAssemblies\LucidSight.Editor.Tests.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
