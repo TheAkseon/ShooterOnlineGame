@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerCharacter))]
 public class Controller : MonoBehaviour
 {
-    private Player _player;
+    private PlayerCharacter _player;
 
-    private void Start() => _player = GetComponent<Player>();
+    private void Start() => _player = GetComponent<PlayerCharacter>();
 
     private void Update()
     {
