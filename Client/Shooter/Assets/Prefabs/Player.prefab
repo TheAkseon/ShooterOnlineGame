@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c336c1a406fdbdc4599a3192f9ff1a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 2
+  <Speed>k__BackingField: 5
   _head: {fileID: 7276310680231243301}
   _cameraPoint: {fileID: 1910304722045799375}
   _maxHeadAngle: 90

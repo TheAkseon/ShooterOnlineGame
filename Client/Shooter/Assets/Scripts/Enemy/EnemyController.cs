@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     private EnemyCharacter _character;
     private int _receiveTimeIntervalCount = 5;
     private List<float> _receiveTimeInterval = new List<float> { 0, 0, 0, 0, 0};
+    private Player _player;
+
     private float AverageInterval
     {
         get
@@ -71,6 +73,12 @@ public class EnemyController : MonoBehaviour
                 case "vZ":
                     velocity.z = (float)dataChange.Value;
                     break;
+                case "rX":
+                    _character.SetRotateX((float)dataChange.Value);
+                    break;
+                case "rY":
+                    _character.SetRotateY((float)dataChange.Value);
+                    break;
                 default:
                     Debug.Log("Не обрабатывается изменение поля " + dataChange.Field);
                     break;
@@ -78,5 +86,18 @@ public class EnemyController : MonoBehaviour
         }
 
         _character.SetMovement(position, velocity, AverageInterval);
+    }
+
+    public void Init(Player player)
+    {
+        _player = player;
+        //_character.SetSpeed(player.speed);
+        player.OnChange += OnChange;
+    }
+
+    public void Destroy()
+    {
+        _player.OnChange -= OnChange;
+        Destroy(gameObject);
     }
 }
