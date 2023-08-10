@@ -4,19 +4,35 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
+    [SerializeField] private Transform _head;
+    [SerializeField] private Transform _cameraPoint;
+    [SerializeField] private float _maxHeadAngle = 90f;
+    [SerializeField] private float _minHeadAngle = -90f;
+    [SerializeField] private float _jumpForce = 5f;
 
     private Rigidbody _rigidbody;
     private float _inputHorizontal;
     private float _inputVertical;
+    private float _rotateY;
+    private float _currentRotateX;
+    private bool _isFly = true;
 
     private void Start()
     {
+        _jumpForce = 5f;
+        _maxHeadAngle = 90f;
+        _minHeadAngle = -90f;
         _rigidbody = GetComponent<Rigidbody>();
+        Transform camera = Camera.main.transform;
+        camera.parent = _cameraPoint;
+        camera.localPosition = Vector3.zero;
+        camera.localRotation = Quaternion.identity;
     }
 
     private void  FixedUpdate()
     {
         Move();
+        RotateY();
     }
 
     private void Move()
@@ -25,18 +41,56 @@ public class PlayerCharacter : MonoBehaviour
         transform.position += direction * Time.fixedDeltaTime * _speed;*/
 
         Vector3 velocity = (transform.forward * _inputVertical + transform.right * _inputHorizontal).normalized * _speed;
+        velocity.y = _rigidbody.velocity.y;
         _rigidbody.velocity = velocity;
     }
 
-    public void SetInput(float inputHorizontal, float inputVertical)
+    private void RotateY()
+    {
+        _rigidbody.angularVelocity = new Vector3(0, _rotateY, 0);
+        _rotateY = 0f;
+    }
+
+    public void RotateX(float value)
+    {
+        _currentRotateX = Mathf.Clamp(_currentRotateX + value, _minHeadAngle, _maxHeadAngle);
+        _head.localEulerAngles = new Vector3(_currentRotateX, 0, 0);
+    }
+
+    public void SetInput(float inputHorizontal, float inputVertical, float rotateY)
     {
         _inputHorizontal = inputHorizontal;
         _inputVertical = inputVertical;
+        _rotateY += rotateY;
     }
 
     public void GetMoveInfo(out Vector3 position, out Vector3 velocity)
     {
         position = transform.position;
         velocity = _rigidbody.velocity;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        var contactPoints = collision.contacts;
+
+        for (int i = 0; i < contactPoints.Length; i++)
+        {
+            if (contactPoints[i].normal.y > .45f)
+                _isFly = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        _isFly = true; 
+    }
+
+    public void Jump()
+    {
+        if (_isFly)
+            return;
+
+        _rigidbody.AddForce(0, _jumpForce, 0, ForceMode.VelocityChange);
     }
 }
