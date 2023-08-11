@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     [SerializeField] private float _mouseSensitivity = 2f;
+    [SerializeField] private PlayerGun _gun;
 
     private PlayerCharacter _player;
 
@@ -18,6 +19,8 @@ public class Controller : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
+        bool isShoot = Input.GetMouseButton(0);
+
         bool isSpacePressed = Input.GetKeyDown(KeyCode.Space); 
 
         float rotateY = mouseX * _mouseSensitivity;
@@ -28,6 +31,9 @@ public class Controller : MonoBehaviour
         if (isSpacePressed) 
             _player.Jump();
 
+        if (isShoot)
+            _gun.Shoot();
+        
         SendMove();
     }
 
