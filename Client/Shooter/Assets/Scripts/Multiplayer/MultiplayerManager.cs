@@ -30,7 +30,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 
         _room.OnStateChange += OnChange;
 
-        _room.OnMessage<string>("Shoot", ApplyShoot);
+        _room.OnMessage<string>("shoot", ApplyShoot);
     }
 
     private void ApplyShoot(string jsonShootInfo)

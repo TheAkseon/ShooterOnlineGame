@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd672c8c69611fb4ead3937bc0d3bbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerGun: {fileID: 1066988053}
+  _gun: {fileID: 1066988053}
   _animator: {fileID: 1598727292}
 --- !u!1001 &3600261096921535640
 PrefabInstance:

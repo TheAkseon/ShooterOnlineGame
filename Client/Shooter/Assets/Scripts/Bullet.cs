@@ -1,11 +1,30 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private float _lifeTime = 5f;
 
-    public void Init(Vector3 direction, float speed)
+    public void Init(Vector3 velocity)
     {
-        _rigidbody.velocity = direction * speed;
+        _rigidbody.velocity = velocity;
+        StartCoroutine(DelayDestroy());
+    }
+
+    private IEnumerator DelayDestroy()
+    {
+        yield return new WaitForSeconds(_lifeTime);
+        Destroy();
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy();
     }
 }
