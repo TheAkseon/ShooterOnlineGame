@@ -3,13 +3,20 @@ using UnityEngine;
 public class EnemyCharacter : Character
 {
     [SerializeField] private Transform _head;
+    [SerializeField] private float _rotationSpeed = 15f;
+    [SerializeField] private float _timeChangeLocalScale = 15f;
 
     public Vector3 TargetPosition { get; private set; } = Vector3.zero;
     private float _velocityMagnitude = 0f;
+    private Vector3 _localEulerAnglesX;
+    private Vector3 _localEulerAnglesY;
+    private Vector3 _targetLocalScale;
 
     private void Start()
     {
         TargetPosition = transform.position;
+
+        _targetLocalScale = transform.localScale;
     }
 
     private void Update()
@@ -23,6 +30,11 @@ public class EnemyCharacter : Character
         {
             transform.position = TargetPosition;
         }
+
+        _head.localRotation = Quaternion.Lerp(_head.localRotation, Quaternion.Euler(_localEulerAnglesX), Time.deltaTime * _rotationSpeed);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(_localEulerAnglesY), Time.deltaTime * _rotationSpeed);
+        transform.localScale = Vector3.Lerp(transform.localScale, _targetLocalScale, Time.deltaTime * _timeChangeLocalScale);
+
     }
 
     public void SetSpeed(float value) => speed = value;
@@ -36,16 +48,16 @@ public class EnemyCharacter : Character
 
     public void SetRotateX(float value)
     {
-        _head.localEulerAngles = new Vector3(value, 0, 0);
+        _localEulerAnglesX = new Vector3(value, 0, 0);
     }
 
     public void SetRotateY(float value)
     {
-        transform.localEulerAngles = new Vector3(0, value, 0);
+        _localEulerAnglesY = new Vector3(0, value, 0);
     }
 
     public void SetScaleY(float scaleY)
     {
-        transform.localScale = new Vector3(transform.localScale.x, scaleY, transform.localScale.z);
+        _targetLocalScale = new Vector3(transform.localScale.x, scaleY, transform.localScale.z);
     }
 }
