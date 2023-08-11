@@ -28,6 +28,9 @@ export class Player extends Schema {
 
     @type("number")
     rY = 0;
+
+    @type("number")
+    sY = 0;
 }
 
 export class State extends Schema {
@@ -59,6 +62,12 @@ export class State extends Schema {
         player.rX = data.rX;
         player.rY = data.rY;
     }
+
+    scalePlayer(sessionId: string, data: any){
+        const player = this.players.get(sessionId);
+
+        player.sY = data.sY;
+    }
 }
 
 export class StateHandlerRoom extends Room<State> {
@@ -72,6 +81,10 @@ export class StateHandlerRoom extends Room<State> {
         this.onMessage("move", (client, data) => {
             //console.log("StateHandlerRoom received message from", client.sessionId, ":", data);
             this.state.movePlayer(client.sessionId, data);
+        });
+
+        this.onMessage("scale", (client, data) => {
+            this.state.scalePlayer(client.sessionId, data);
         });
 
         this.onMessage("shoot", (client, data) => {

@@ -8,6 +8,7 @@ public class CharacterAnimation : MonoBehaviour
 
     private const string Grounded = "Grounded";
     private const string Speed = "Speed";
+    private const string Sit = "Sit";
 
     private void Update()
     {

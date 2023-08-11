@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -17,9 +18,15 @@ public class PlayerCharacter : Character
     private float _rotateY;
     private float _currentRotateX;
     private float _jumpTime;
+    private float _targetScaleY = 0.7f;
+    private float _durationSit = 0.2f;
+    private Vector3 _initialScale;
+    private Vector3 _targetScale;
 
     private void Start()
     {
+        _initialScale = transform.localScale;
+        _targetScale = new Vector3(transform.localScale.x, _targetScaleY, transform.localScale.z);
         _jumpForce = 5f;
         _maxHeadAngle = 90f;
         _minHeadAngle = -90f;
@@ -53,6 +60,38 @@ public class PlayerCharacter : Character
         _rotateY = 0f;
     }
 
+    private IEnumerator SitDownCourotine()
+    {
+        float startTime = Time.time;
+
+        while(Time.time - startTime < _durationSit)
+        {
+            float time = (Time.time - startTime) / _durationSit;
+
+            transform.localScale = Vector3.Lerp(_initialScale, _targetScale, time);
+
+            yield return null;
+        }
+
+        transform.localScale = _targetScale;
+    }
+
+    private IEnumerator GetUpCourutine()
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < _durationSit)
+        {
+            float time = (Time.time - startTime) / _durationSit;
+
+            transform.localScale = Vector3.Lerp(transform.localScale, _initialScale, time);
+
+            yield return null;
+        }
+
+        transform.localScale = _initialScale;
+    }
+
     public void RotateX(float value)
     {
         _currentRotateX = Mathf.Clamp(_currentRotateX + value, _minHeadAngle, _maxHeadAngle);
@@ -75,6 +114,11 @@ public class PlayerCharacter : Character
         Velocity = velocity;
     }
 
+    public void GetScaleYInfo(out float scaleY)
+    {
+        scaleY = transform.localScale.y;
+    }
+
     public void Jump()
     {
         if (_checkFly.IsFly)
@@ -85,5 +129,19 @@ public class PlayerCharacter : Character
 
         _jumpTime = Time.time;
         _rigidbody.AddForce(0, _jumpForce, 0, ForceMode.VelocityChange);
+    }
+
+    public void SitDown()
+    {
+        StopAllCoroutines();
+
+        StartCoroutine(SitDownCourotine());
+    }
+
+    public void GetUp()
+    {
+        StopAllCoroutines();
+
+        StartCoroutine(GetUpCourutine());
     }
 }

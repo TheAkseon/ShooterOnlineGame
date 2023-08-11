@@ -81,6 +81,9 @@ public class EnemyController : MonoBehaviour
                 case "rY":
                     _character.SetRotateY((float)dataChange.Value);
                     break;
+                case "sY":
+                    _character.SetScaleY((float)dataChange.Value);
+                    break;
                 default:
                     Debug.Log("Не обрабатывается изменение поля " + dataChange.Field);
                     break;

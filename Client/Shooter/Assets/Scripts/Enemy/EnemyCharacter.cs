@@ -43,4 +43,9 @@ public class EnemyCharacter : Character
     {
         transform.localEulerAngles = new Vector3(0, value, 0);
     }
+
+    public void SetScaleY(float scaleY)
+    {
+        transform.localScale = new Vector3(transform.localScale.x, scaleY, transform.localScale.z);
+    }
 }

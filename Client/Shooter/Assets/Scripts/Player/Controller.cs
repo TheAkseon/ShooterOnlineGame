@@ -28,6 +28,10 @@ public class Controller : MonoBehaviour
 
         bool isSpacePressed = Input.GetKeyDown(KeyCode.Space); 
 
+        bool isSitDownKeyPressed = Input.GetKeyDown(KeyCode.Z);
+
+        bool isSitDownKeyUp = Input.GetKeyUp(KeyCode.Z);
+
         float rotateY = mouseX * _mouseSensitivity;
 
         _player.SetInput(inputHorizontal, inputVertical, rotateY);
@@ -40,8 +44,20 @@ public class Controller : MonoBehaviour
         {
             SendShoot(ref shootInfo);
         }
-        
+
+        if (isSitDownKeyPressed)
+        {
+            _player.SitDown();
+        }
+
+        if (isSitDownKeyUp)
+        {
+            _player.GetUp();
+        }
+
+
         SendMove();
+        SendScale();
     }
 
     private void SendShoot(ref ShootInfo shootInfo)
@@ -55,6 +71,7 @@ public class Controller : MonoBehaviour
     private void SendMove()
     {
         _player.GetMoveInfo(out Vector3 position, out Vector3 velocity, out float rotateX, out float rotateY);
+
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
             { "pX", position.x},
@@ -66,7 +83,20 @@ public class Controller : MonoBehaviour
             { "rX", rotateX},
             { "rY", rotateY}
         };
+
         _multiplayerManager.SendMessage("move", data);
+    }
+
+    private void SendScale()
+    {
+        _player.GetScaleYInfo(out float scaleY);
+
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            { "sY", scaleY}
+        };
+
+        _multiplayerManager.SendMessage("scale", data);
     }
 }
 
