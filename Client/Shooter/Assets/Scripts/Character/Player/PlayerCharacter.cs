@@ -1,9 +1,12 @@
+using Colyseus.Schema;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerCharacter : Character
 {
+    [SerializeField] private Health _health;
     [SerializeField] private Transform _head;
     [SerializeField] private Transform _cameraPoint;
     [SerializeField] private float _maxHeadAngle = 90f;
@@ -35,9 +38,12 @@ public class PlayerCharacter : Character
         camera.parent = _cameraPoint;
         camera.localPosition = Vector3.zero;
         camera.localRotation = Quaternion.identity;
+
+        _health.SetMax(maxHealth);
+        _health.SetCurrent(maxHealth);
     }
 
-    private void  FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
         RotateY();
@@ -64,7 +70,7 @@ public class PlayerCharacter : Character
     {
         float startTime = Time.time;
 
-        while(Time.time - startTime < _durationSit)
+        while (Time.time - startTime < _durationSit)
         {
             float time = (Time.time - startTime) / _durationSit;
 
@@ -143,5 +149,21 @@ public class PlayerCharacter : Character
         StopAllCoroutines();
 
         StartCoroutine(GetUpCourutine());
+    }
+
+    internal void OnChange(List<DataChange> changes)
+    {
+        foreach (var dataChange in changes)
+        {
+            switch (dataChange.Field)
+            {
+                case "currentHP":
+                    _health.SetCurrent((sbyte)dataChange.Value);
+                    break;
+                default:
+                    Debug.Log("Не обрабатывается изменение поля " + dataChange.Field);
+                    break;
+            }
+        }
     }
 }

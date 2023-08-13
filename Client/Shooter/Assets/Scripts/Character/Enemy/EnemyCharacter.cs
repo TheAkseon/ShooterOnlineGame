@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCharacter : Character
@@ -7,11 +8,12 @@ public class EnemyCharacter : Character
     [SerializeField] private float _rotationSpeed = 15f;
     [SerializeField] private float _timeChangeLocalScale = 15f;
 
-    public Vector3 TargetPosition { get; private set; } = Vector3.zero;
+    private string _sessionID;
     private float _velocityMagnitude = 0f;
     private Vector3 _localEulerAnglesX;
     private Vector3 _localEulerAnglesY;
     private Vector3 _targetLocalScale;
+    public Vector3 TargetPosition { get; private set; } = Vector3.zero;
 
     private void Start()
     {
@@ -38,6 +40,11 @@ public class EnemyCharacter : Character
 
     }
 
+    public void Init(string sessionID)
+    {
+        _sessionID = sessionID;
+    }
+
     public void SetSpeed(float value) => speed = value;
 
     public void SetMaxHP(int value)
@@ -57,6 +64,14 @@ public class EnemyCharacter : Character
     public void ApplyDamage(int damage)
     {
         _health.ApplyDamage(damage);
+
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            { "id", _sessionID},
+            { "value", damage}
+        };
+
+        MultiplayerManager.Instance.SendMessage("damage", data);
     }
 
     public void SetRotateX(float value)
