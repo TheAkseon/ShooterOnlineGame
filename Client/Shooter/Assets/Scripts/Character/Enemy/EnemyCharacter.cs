@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyCharacter : Character
 {
@@ -53,6 +54,11 @@ public class EnemyCharacter : Character
         _health.SetMax(value);
         _health.SetCurrent(value);
     } 
+
+    public void RestoreHP(int newValue)
+    {
+        _health.SetCurrent(newValue);
+    }
 
     public void SetMovement(in Vector3 position, in Vector3 velocity, in float averageInterval)
     {
