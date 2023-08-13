@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <speed>k__BackingField: 5
+  <maxHealth>k__BackingField: 10
   _head: {fileID: 7276310680231243301}
   _cameraPoint: {fileID: 1910304722045799375}
   _maxHeadAngle: 90
@@ -212,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 6430660628568750862, guid: 4e715e31068c27b4685a92c2c842f843,
     type: 3}
+  _damage: 1
   _bulletPoint: {fileID: 1515265045}
   _bulletSpeed: 10
   _shootDelay: 0.2

@@ -6,8 +6,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyGun _gun;
+    [SerializeField] private EnemyCharacter _character;
 
-    private EnemyCharacter _character;
     private int _receiveTimeIntervalCount = 5;
     private List<float> _receiveTimeInterval = new List<float> { 0, 0, 0, 0, 0};
     private Player _player;
@@ -27,11 +27,6 @@ public class EnemyController : MonoBehaviour
         }
     }
     private float _lastReceiveTime = 0f;
-
-    private void Start()
-    {
-        _character = GetComponent<EnemyCharacter>();
-    }
 
     private void SaveReceiveTime()
     {
@@ -96,7 +91,8 @@ public class EnemyController : MonoBehaviour
     public void Init(Player player)
     {
         _player = player;
-        //_character.SetSpeed(player.speed);
+        _character.SetSpeed(player.speed);
+        _character.SetMaxHP(player.hp);
         player.OnChange += OnChange;
     }
 
