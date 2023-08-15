@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GunAnimation : MonoBehaviour
 {
-    [SerializeField] private Gun _gun;
+    [SerializeField] private Weapon _gun;
     [SerializeField] private Animator _animator;
 
     private const string shoot = "Shoot";
@@ -21,5 +21,12 @@ public class GunAnimation : MonoBehaviour
     private void Shoot()
     {
         _animator.SetTrigger(shoot);
+    }
+
+    public void SetGun(Weapon weapon)
+    {
+        _gun = weapon;
+        _animator = weapon.GetComponent<Animator>();
+        _gun.shoot += Shoot;
     }
 }

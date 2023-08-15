@@ -1,14 +1,39 @@
 using System;
 using UnityEngine;
 
-public class PlayerGun : Gun
+public class PlayerGun : MonoBehaviour
 {
+    [SerializeField] private WeaponData _pistolData;
+    [SerializeField] private WeaponData _thompsonData;
     [SerializeField] private int _damage;
     [SerializeField] private Transform _bulletPoint;
+    [SerializeField] private Transform _weaponPoint;
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _shootDelay;
+    [SerializeField] private GunAnimation _gunAnimation;
 
     private float _lastShootTime;
+    private Weapon _currentWeapon;
+
+    private void Start()
+    {
+        _currentWeapon = WeaponFactory.CreateWeapon(_thompsonData, _weaponPoint);
+        _gunAnimation.SetGun(_currentWeapon);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _currentWeapon = WeaponFactory.CreateWeapon(_thompsonData, _weaponPoint);
+            _gunAnimation.SetGun(_currentWeapon);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _currentWeapon = WeaponFactory.CreateWeapon(_pistolData, _weaponPoint);
+            _gunAnimation.SetGun(_currentWeapon);
+        }
+    }
 
     public bool TryShoot(out ShootInfo shootInfo)
     {
@@ -20,8 +45,8 @@ public class PlayerGun : Gun
         Vector3 velocity = _bulletPoint.forward * _bulletSpeed;
 
         _lastShootTime = Time.time;
-        Instantiate(_bulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
-        shoot?.Invoke();
+        Instantiate(_currentWeapon.BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
+        _currentWeapon.shoot?.Invoke();
 
         shootInfo.pX = position.x;
         shootInfo.pY = position.y;

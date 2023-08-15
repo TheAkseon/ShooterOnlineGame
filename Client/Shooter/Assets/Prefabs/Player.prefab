@@ -439,6 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe4ed784293944428a3f8fd07b4dc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _restartDelay: 3
   _mouseSensitivity: 2
   _gun: {fileID: 1066988053}
 --- !u!54 &7914058000236530548
@@ -515,10 +516,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09822dc90909e44fb63bdac7d38919c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 6430660628568750862, guid: 4e715e31068c27b4685a92c2c842f843,
-    type: 3}
+  _pistolData: {fileID: 11400000, guid: 1c7b0816a22230042bc91ac04b34d398, type: 2}
+  _thompsonData: {fileID: 11400000, guid: e513f464a37c1c64eac2bf9c7a55357e, type: 2}
   _damage: 1
   _bulletPoint: {fileID: 1515265045}
+  _weaponPoint: {fileID: 7628578428001242384}
   _bulletSpeed: 10
   _shootDelay: 0.2
 --- !u!114 &968413187769941466
@@ -533,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd672c8c69611fb4ead3937bc0d3bbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 1066988053}
+  _gun: {fileID: 0}
   _animator: {fileID: 1598727292}
 --- !u!114 &1964602107
 MonoBehaviour:
@@ -555,6 +557,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6664567168021698175}
     m_Modifications:
+    - target: {fileID: 1064510435062398532, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1144537614782393561, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -563,6 +570,11 @@ PrefabInstance:
     - target: {fileID: 1144537614782393561, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252726368819672324, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1546179964476495164, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
@@ -635,6 +647,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5533890095903291548, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6352491982284282248, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -687,6 +704,12 @@ Animator:
 --- !u!4 &7276310680231243301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6128295628213254845, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3600261096921535640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7628578428001242384 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6352491982284282248, guid: 5b9e5150db7b2204d98b5f69a683d1e6,
     type: 3}
   m_PrefabInstance: {fileID: 3600261096921535640}
   m_PrefabAsset: {fileID: 0}
