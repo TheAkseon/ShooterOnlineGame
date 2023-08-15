@@ -294,6 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6987788065190494527}
   - component: {fileID: 1505256649255903504}
+  - component: {fileID: 4620648950872547493}
   m_Layer: 0
   m_Name: Thompson
   m_TagString: Untagged
@@ -337,3 +338,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4620648950872547493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896824187584356503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a61fe8d72a184a74abac892d07452649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 6430660628568750862, guid: 4e715e31068c27b4685a92c2c842f843,
+    type: 3}
+  _animator: {fileID: 1505256649255903504}

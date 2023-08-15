@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Thompson
   m_EditorClassIdentifier: 
   weaponName: Thompson
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 8896824187584356503, guid: 6e79014678df1b647a6f93918aa2ca66,
+    type: 3}

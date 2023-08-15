@@ -1,17 +1,16 @@
-using System;
 using UnityEngine;
 
 public class GunAnimation : MonoBehaviour
 {
-    [SerializeField] private Weapon _gun;
-    [SerializeField] private Animator _animator;
+    private Weapon _gun;
+    private Animator _animator;
 
     private const string shoot = "Shoot";
 
-    private void Start()
+    /*private void Start()
     {
         _gun.shoot += Shoot;
-    }
+    }*/
 
 
     private void OnDestroy()
@@ -23,10 +22,10 @@ public class GunAnimation : MonoBehaviour
         _animator.SetTrigger(shoot);
     }
 
-    public void SetGun(Weapon weapon)
+    public void SetGun(Weapon weapon, Animator animator)
     {
         _gun = weapon;
-        _animator = weapon.GetComponent<Animator>();
+        _animator = animator;
         _gun.shoot += Shoot;
     }
 }

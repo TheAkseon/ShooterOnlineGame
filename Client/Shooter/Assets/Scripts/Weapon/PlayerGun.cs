@@ -18,20 +18,26 @@ public class PlayerGun : MonoBehaviour
     private void Start()
     {
         _currentWeapon = WeaponFactory.CreateWeapon(_thompsonData, _weaponPoint);
-        _gunAnimation.SetGun(_currentWeapon);
+        _currentWeapon.gameObject.transform.SetParent(_weaponPoint);
+        _gunAnimation.SetGun(_currentWeapon, _currentWeapon.Animator);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            _currentWeapon.Destroy();
             _currentWeapon = WeaponFactory.CreateWeapon(_thompsonData, _weaponPoint);
-            _gunAnimation.SetGun(_currentWeapon);
+            _currentWeapon.gameObject.transform.SetParent(_weaponPoint);
+            _gunAnimation.SetGun(_currentWeapon, _currentWeapon.Animator);
+            //_currentWeapon.gameObject.transform.SetParent(_weaponPoint.gameObject.transform, true);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            _currentWeapon.Destroy();
             _currentWeapon = WeaponFactory.CreateWeapon(_pistolData, _weaponPoint);
-            _gunAnimation.SetGun(_currentWeapon);
+            _currentWeapon.gameObject.transform.SetParent(_weaponPoint);
+            _gunAnimation.SetGun(_currentWeapon, _currentWeapon.Animator);
         }
     }
 
@@ -45,6 +51,7 @@ public class PlayerGun : MonoBehaviour
         Vector3 velocity = _bulletPoint.forward * _bulletSpeed;
 
         _lastShootTime = Time.time;
+        //сделать для каждого оружия свою точку спавна пули
         Instantiate(_currentWeapon.BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
         _currentWeapon.shoot?.Invoke();
 
