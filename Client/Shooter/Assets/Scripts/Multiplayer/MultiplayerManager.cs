@@ -33,6 +33,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
         _room.OnStateChange += OnChange;
 
         _room.OnMessage<string>("shoot", ApplyShoot);
+        _room.OnMessage<string>("ChangeWeapon", ChangeWeapon);
     }
 
     private void ApplyShoot(string jsonShootInfo)
@@ -46,6 +47,19 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
         }
 
         _enemies[shootInfo.key].Shoot(shootInfo);
+    }
+
+    private void ChangeWeapon(string jsonChangeWeaponInfo)
+    {
+        ChangeWeaponInfo changeWeaponInfo = JsonUtility.FromJson<ChangeWeaponInfo>(jsonChangeWeaponInfo);
+
+        if (_enemies.ContainsKey(changeWeaponInfo.key) == false)
+        {
+            Debug.LogError("врага нет, а он пытался поменять оружие");
+            return;
+        }
+
+        _enemies[changeWeaponInfo.key].ChangeWeapon(changeWeaponInfo.index);
     }
 
     private void OnChange(State state, bool isFirstState)

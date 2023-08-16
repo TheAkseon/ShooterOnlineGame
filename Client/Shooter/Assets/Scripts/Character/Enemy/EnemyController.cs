@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyCharacter))]
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private EnemyGun _gun;
+    [SerializeField] private EnemyWeaponController _gun;
     [SerializeField] private EnemyCharacter _character;
 
     private int _receiveTimeIntervalCount = 5;
@@ -117,5 +117,10 @@ public class EnemyController : MonoBehaviour
     {
         _player.OnChange -= OnChange;
         Destroy(gameObject);
+    }
+
+    public void ChangeWeapon(int index)
+    {
+        _gun.ChangeWeapon(index);
     }
 }

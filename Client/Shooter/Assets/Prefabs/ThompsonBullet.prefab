@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6430660628568750849}
   - component: {fileID: 6430660628568750862}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: ThompsonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 6430660628568750849}
+  _lifeTime: 5
 --- !u!1 &6430660628746786042
 GameObject:
   m_ObjectHideFlags: 0

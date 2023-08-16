@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour
 {
     [SerializeField] private float _restartDelay = 3f;
     [SerializeField] private float _mouseSensitivity = 2f;
-    [SerializeField] private PlayerGun _gun;
+    [SerializeField] private PlayerWeaponController _gun;
 
     private PlayerCharacter _player;
     private MultiplayerManager _multiplayerManager;
