@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,6 +11,7 @@ public class Controller : MonoBehaviour
     [SerializeField] private float _restartDelay = 3f;
     [SerializeField] private float _mouseSensitivity = 2f;
     [SerializeField] private PlayerWeaponController _gun;
+    [SerializeField] private List<SpawnPoint> _spawnPoints = new List<SpawnPoint>();
 
     private PlayerCharacter _player;
     private MultiplayerManager _multiplayerManager;
@@ -17,6 +19,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
+        _spawnPoints.AddRange(FindObjectsOfType<SpawnPoint>());
         _player = GetComponent<PlayerCharacter>();
         _multiplayerManager = MultiplayerManager.Instance;
     }
@@ -110,14 +113,14 @@ public class Controller : MonoBehaviour
     {
         RestartInfo info = JsonUtility.FromJson<RestartInfo>(jsonRestartInfo);
         StartCoroutine(Hold());
-        _player.transform.position = new Vector3(info.x, 0, info.z);
+        _player.transform.position = new Vector3(_spawnPoints[info.rN].gameObject.transform.position.x, 0, _spawnPoints[info.rN].gameObject.transform.position.z);
         _player.SetInput(0, 0, 0);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
-            { "pX", info.x},
+            { "pX", _spawnPoints[info.rN].gameObject.transform.position.x},
             { "pY", 0},
-            { "pZ", info.z},
+            { "pZ", _spawnPoints[info.rN].gameObject.transform.position.z},
             { "vX", 0},
             { "vY", 0},
             { "vZ", 0},
@@ -151,6 +154,5 @@ public struct ShootInfo
 [Serializable]
 public struct RestartInfo
 {
-    public float x;
-    public float z;
+    public int rN; 
 }

@@ -442,6 +442,7 @@ MonoBehaviour:
   _restartDelay: 3
   _mouseSensitivity: 2
   _gun: {fileID: 7190819627244624165}
+  _spawnPoints: []
 --- !u!54 &7914058000236530548
 Rigidbody:
   m_ObjectHideFlags: 0

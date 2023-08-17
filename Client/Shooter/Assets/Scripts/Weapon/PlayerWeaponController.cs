@@ -4,10 +4,7 @@ public class PlayerWeaponController : MonoBehaviour
 {
     [SerializeField] private WeaponData _pistolData;
     [SerializeField] private WeaponData _thompsonData;
-    //[SerializeField] private int _damage;
     [SerializeField] private Transform _weaponPoint;
-    //[SerializeField] private float _bulletSpeed;
-    //[SerializeField] private float _shootDelay;
     [SerializeField] private GunAnimation _gunAnimation;
 
     private float _lastShootTime;

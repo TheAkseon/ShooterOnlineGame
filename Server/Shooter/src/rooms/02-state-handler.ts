@@ -123,10 +123,9 @@ export class StateHandlerRoom extends Room<State> {
             for(var i = 0; i < this.clients.length; i++){
                 if(this.clients[i].id != clientID) continue;
                 
-                const x = Math.floor(Math.random() * 50) - 25;
-                const z = Math.floor(Math.random() * 50) - 25;
+                const rN = Math.floor(Math.random() * 4);
 
-                const message = JSON.stringify({x, z});
+                const message = JSON.stringify({rN});
                 this.clients[i].send("Restart", message);
             }
         });
