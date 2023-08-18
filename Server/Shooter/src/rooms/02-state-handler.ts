@@ -104,7 +104,11 @@ export class StateHandlerRoom extends Room<State> {
 
         this.onMessage("changeWeapon", (client, data) => {
             this.broadcast("ChangeWeapon", data, {except: client})
-        })
+        });
+
+        this.onMessage("msg", (client, data) => {
+            this.broadcast("message", `[${client.sessionId}] ${data}`);
+        });
 
         this.onMessage("damage", (client, data) => {
             const clientID = data.id;
@@ -137,7 +141,7 @@ export class StateHandlerRoom extends Room<State> {
 
     onJoin (client: Client, data: any) {
         if(this.clients.length > 1) this.lock();
-        client.send("hello", "world");
+        client.send("message", "Добро пожаловать в чат");
         this.state.createPlayer(client.sessionId, data);
     }
 

@@ -34,6 +34,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 
         _room.OnMessage<string>("shoot", ApplyShoot);
         _room.OnMessage<string>("ChangeWeapon", ChangeWeapon);
+        _room.OnMessage<string>("message", Chat.Instance.ApplyMessage);
     }
 
     private void ApplyShoot(string jsonShootInfo)
